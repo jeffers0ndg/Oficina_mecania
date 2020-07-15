@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Gerenciador de Oficina Mecanica</title>
+    </h:head>
+    <h:body>
+        <h:form>  
+            <p:menubar>
+                <p:menuitem value="Gerenciamento de Oficina Mecanica" icon="fa fa-fw fa-truck"
+                            style="padding-left: 20px"/>
+            </p:menubar>
+        </h:form>
+        <p:layout style="min-width:400px;min-height:400px;">
+            <p:layoutUnit header="Ações" position="west" resizable="false" size="200">
+                <h:panelGrid columns="1" style="padding-left: 12px"> 
+                    <p:link outcome="usuarios">
+                        <p:commandButton value="Usuários" icon="fa fa-fw fa-users" style="width: 100%" type="button"/>
+                    </p:link>
+                    <p:link outcome="mecanicos">
+                        <p:commandButton value="Mecanicos" icon="fa fa-fw fa-male" style="width: 100%" type="button"/>
+                    </p:link>
+                    <p:link outcome="atendentes">
+                        <p:commandButton value="Atendentes" icon="fa fa-fw fa-female" style="width: 100%" type="button"/>
+                    </p:link>
+                    <p:link outcome="ferramentas">
+                        <p:commandButton value="Ferramentas" icon="fa fa-fw fa-wrench" style="width: 100%" type="button"/>
+                    </p:link>
+                    <p:link outcome="maquinas">
+                        <p:commandButton value="Maquinas" icon="fa fa-fw fa-plug" style="width: 100%" type="button"/>
+                    </p:link>
+                    <p:link outcome="pecas">
+                        <p:commandButton value="Peças" icon="fa fa-fw fa-tags" style="width: 100%" type="button"/>
+                    </p:link>
+
+                </h:panelGrid>
+            </p:layoutUnit>
+            <p:layoutUnit header="Página principal" position="center">
+                
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

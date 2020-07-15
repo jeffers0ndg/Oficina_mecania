@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Maquinas</title>
+    </h:head>
+    <h:body>
+        <p:breadCrumb>
+            <p:menuitem value="Categories" url="index.xhtml" />
+            <p:menuitem value="Maquinas" url="#" />
+        </p:breadCrumb>
+        <p:panel>
+            <f:facet name="header">
+                Cadastro de Maquinas
+            </f:facet>
+            <p:messages closable="true" globalOnly="true"></p:messages>
+            <h:form id="formulario">
+                <h:panelGrid columns="2">
+                    Nome:<h:inputText value="#{maquinaBean.maquina.nome}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+                    Marca: <h:inputText value="#{maquinaBean.maquina.marca}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+                    Descricao: <h:inputText value="#{maquinaBean.maquina.descricao}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+                    <p:commandButton style="background: #3498db; color: #fff" ajax="false" type="submit" value="Salvar"
+                                     action="#{maquinaBean.salvar()}" icon="fa fw fa-save"></p:commandButton>
+                </h:panelGrid>
+            </h:form>
+            <p:dataTable var="m" 
+                         id="tabela"
+                         value="#{maquinaBean.lista}" 
+                         emptyMessage="Nenhum registro encontrado!"
+                         paginator="true"
+                         rows="5"
+                         >
+                <p:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{m.id}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Nome</f:facet>
+                        #{m.nome}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Marca</f:facet>
+                        #{m.marca}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Descrição</f:facet>
+                        #{m.descricao}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:form>  
+                        <p:commandButton type="submit" ajax="false" immediate="true" update=":tabela" style="background: #c0392b; color: #fff" icon="fa fw fa-trash-o" action="#{maquinaBean.excluir(m)}"></p:commandButton>
+                        <p:commandButton immediate="true" update=":formulario" action="#{maquinaBean.carregar(m)}" icon="fa fw fa-pencil"></p:commandButton>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+        </p:panel>
+    </h:body>
+</html>
+

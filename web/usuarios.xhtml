@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Usuarios</title>
+    </h:head>
+    <h:body>
+        <p:breadCrumb>
+            <p:menuitem value="Categories" url="index.xhtml" />
+            <p:menuitem value="Usuários" url="#" />
+        </p:breadCrumb>
+        <p:panel>
+            <f:facet name="header">
+                Cadastro de Usuários
+            </f:facet>
+            <p:messages closable="true" globalOnly="true"></p:messages>
+            <h:form id="formulario">
+                <h:panelGrid columns="2">
+                    Nome:<h:inputText value="#{usuarioBean.usuario.nome}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+                    CPF: <p:inputMask mask="999.999.999-99" style="width: 125px" value="#{usuarioBean.usuario.cpf}"/>
+                    Email:<h:inputText value="#{usuarioBean.usuario.email}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+                    Data:<p:calendar value="#{usuarioBean.usuario.dataNasc}" showOn="button" pattern="dd/MM/yyyy"></p:calendar>
+                    Cidade:<p:selectOneMenu value="#{usuarioBean.usuario.cidade}">
+                        <f:selectItems value="#{usuarioBean.cidades}"></f:selectItems>
+                    </p:selectOneMenu>
+                    Senha:<h:inputSecret value="#{usuarioBean.usuario.senha}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputSecret>
+                    Repetir Senha:<h:inputSecret value="#{usuarioBean.repetirSenha}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputSecret>
+                    <p:commandButton style="background: #3498db; color: #fff" ajax="false" type="submit" value="Salvar"
+                                     action="#{usuarioBean.salvar()}" icon="fa fw fa-save"></p:commandButton>
+                </h:panelGrid>
+            </h:form>
+            <p:dataTable var="u" 
+                         id="tabela"
+                         value="#{usuarioBean.lista}" 
+                         emptyMessage="Nenhum registro encontrado!"
+                         paginator="true"
+                         rows="5"
+                         >
+                <p:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{u.id}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Nome</f:facet>
+                        #{u.nome}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Nascimento</f:facet>
+                    <h:outputText value="#{u.dataNasc}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Cpf</f:facet>
+                        #{u.cpf}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Email</f:facet>
+                        #{u.email}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:form>  
+                        <p:commandButton type="submit" ajax="false" immediate="true" update=":tabela" style="background: #c0392b; color: #fff" icon="fa fw fa-trash-o" action="#{usuarioBean.excluir(u)}"></p:commandButton>
+                        <p:commandButton immediate="true" update=":formulario" action="#{usuarioBean.carregar(u)}" icon="fa fw fa-pencil"></p:commandButton>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+        </p:panel>
+    </h:body>
+</html>
+

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Peças</title>
+    </h:head>
+    <h:body>
+        <p:breadCrumb>
+            <p:menuitem value="Categories" url="index.xhtml" />
+            <p:menuitem value="Peças" url="#" />
+        </p:breadCrumb>
+        <p:panel>
+            <f:facet name="header">
+                Cadastro de Peças
+            </f:facet>
+            <p:messages closable="true" globalOnly="true"></p:messages>
+            <h:form id="formulario">
+                <h:panelGrid columns="2">
+                    Nome: <h:inputText value="#{pecaBean.peca.nome}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+                    Descricao: <h:inputText value="#{pecaBean.peca.descricao}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+                    Fornecedor: <h:inputText value="#{pecaBean.peca.fornecedor}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+                    Preço: <h:inputText value="#{pecaBean.peca.preco}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+
+                    <p:commandButton style="background: #3498db; color: #fff" ajax="false" type="submit" value="Salvar"
+                                     action="#{pecaBean.salvar()}" icon="fa fw fa-save"></p:commandButton>
+                </h:panelGrid>
+            </h:form>
+            <p:dataTable var="p" 
+                         id="tabela"
+                         value="#{pecaBean.lista}" 
+                         emptyMessage="Nenhum registro encontrado!"
+                         paginator="true"
+                         rows="5"
+                         >
+                <p:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{p.id}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Nome</f:facet>
+                        #{p.nome}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Descricao</f:facet>
+                        #{p.descricao}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Fornecedor</f:facet>
+                        #{p.fornecedor}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Preço</f:facet>
+                        #{p.preco}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:form>  
+                        <p:commandButton type="submit" ajax="false" immediate="true" update=":tabela" style="background: #c0392b; color: #fff" icon="fa fw fa-trash-o" action="#{pecaBean.excluir(p)}"></p:commandButton>
+                        <p:commandButton immediate="true" update=":formulario" action="#{pecaBean.carregar(p)}" icon="fa fw fa-pencil"></p:commandButton>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+        </p:panel>
+    </h:body>
+</html>
+

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Ferramentas</title>
+    </h:head>
+    <h:body>
+        <p:breadCrumb>
+            <p:menuitem value="Categories" url="index.xhtml" />
+            <p:menuitem value="Ferramentas" url="#" />
+        </p:breadCrumb>
+        <p:panel>
+            <f:facet name="header">
+                Cadastro de Ferramentas
+            </f:facet>
+            <p:messages closable="true" globalOnly="true"></p:messages>
+            <h:form id="formulario">
+                <h:panelGrid columns="2">
+                    Nome:<h:inputText value="#{ferramentaBean.ferramenta.nome}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+                    Marca: <h:inputText value="#{ferramentaBean.ferramenta.marca}" styleClass="ui-inputfield ui-inputmask ui-widget ui-state-default ui-corner-all"></h:inputText>
+                    <p:commandButton style="background: #3498db; color: #fff" ajax="false" type="submit" value="Salvar"
+                                     action="#{ferramentaBean.salvar()}" icon="fa fw fa-save"></p:commandButton>
+                </h:panelGrid>
+            </h:form>
+            <p:dataTable var="f" 
+                         id="tabela"
+                         value="#{ferramentaBean.lista}" 
+                         emptyMessage="Nenhum registro encontrado!"
+                         paginator="true"
+                         rows="5"
+                         >
+                <p:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{f.id}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Nome</f:facet>
+                        #{f.nome}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Marca</f:facet>
+                        #{f.marca}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:form>  
+                        <p:commandButton type="submit" ajax="false" immediate="true" update=":tabela" style="background: #c0392b; color: #fff" icon="fa fw fa-trash-o" action="#{ferramentaBean.excluir(f)}"></p:commandButton>
+                        <p:commandButton immediate="true" update=":formulario" action="#{ferramentaBean.carregar(f)}" icon="fa fw fa-pencil"></p:commandButton>
+                    </h:form>
+                </p:column>
+            </p:dataTable>
+        </p:panel>
+    </h:body>
+</html>
+
